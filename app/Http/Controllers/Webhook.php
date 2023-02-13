@@ -22,13 +22,28 @@ class webhook
 
     public function mensagemRecebida(Request $request)
     {
-        if($contato = $this->identificarMensagem($request->input("phone"))){
-            $arrayDisparoResposta = $this->criarRespostaMensagem($contato);
+        // ignora retornos de reacao e stickers
+        if(isset($request->sticker) || isset($request->reaction)){
+            //
         } else {
-            $arrayDisparoResposta = $this->criarRespostaMensagem(array(False, False, False, $request->input("phone")), False);
-        }
+            // identifica o tipo da mensagem
+            $tipo = "texto";
+            $tipo = isset($request->video) ? "video" : $tipo;
+            $tipo = isset($request->image) ? "image" : $tipo;
+            $tipo = isset($request->audio) ? "audio" : $tipo;
 
-        $this->objMensagem->dispararMensagem([$arrayDisparoResposta]);
+            if($contato = $this->identificarMensagem($request->input("phone"))){
+                $arrayDisparoResposta = $this->criarRespostaMensagem($contato, $tipo);
+            } else {
+                $arrayDisparoResposta = $this->criarRespostaMensagem(
+                    array(False, False, False, $request->input("phone")),
+                    $tipo,
+                    False
+                );
+            }
+
+            $this->objMensagem->dispararMensagem($arrayDisparoResposta);
+        }
     }
 
 
@@ -68,7 +83,7 @@ class webhook
     /**
      * Responder mensagem recebida
      */
-    public function criarRespostaMensagem($dados, $cliente = True)
+    public function criarRespostaMensagem($dados, $tipo, $cliente = True)
     {
         $disparo = array();
 
@@ -86,8 +101,18 @@ class webhook
             "Eii, infelizmente não consigo dar continuidade em nossa conversa :(\n\nPor gentileza, encontre a clínica mais próxima de você e ela vai entrar em contato 👇🏻:\nhttps://maistopestetica.com.br/agendamento\n\nObrigada! 😁"
         );
 
+        $padrao_tipo_mensagem = array(
+            "image" => "Não entendo imagens 😔\nEnvia mensagem de *texto* por favor!",
+            "video" => "Não consigo ver vídeos e GIFs, digita um *texto* por gentileza!",
+            "audio" => "Ainda não entendo áudios, então... 🔇 rsrs.\nDigita um *texto* por favor."
+        );
+
         $index = rand(0, 3);
-        $mensagem = $cliente == True ? $padroes_para_clientes[$index] : $padroes_sem_ser_cliente[$index];
+        if($tipo == "texto"){
+            $mensagem = $cliente == True ? $padroes_para_clientes[$index] : $padroes_sem_ser_cliente[$index];
+        } else {
+            $mensagem = $padrao_tipo_mensagem[$tipo];
+        }
 
         array_push($disparo, array(
             "phone" => $dados[3],

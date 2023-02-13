@@ -102,17 +102,17 @@ class Mensagem
                 ),
                 ));
 
-                curl_exec($curl);
-                curl_close($curl);
-
+                
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
-
+                
                 echo json_encode($mensagem) . "\n\n";
-
+                
                 if($contTesteDesenvolvimento == 10) {
                     break;
                 }
+                
+                curl_close($curl);
             }
         }
         catch(Exception $e) {

@@ -28,7 +28,7 @@ class Agenda extends Controller
             $SQL = "SELECT C.nome AS pessoa, C.celular, A.inicio, F.nome AS unidade, F.id, F.celular AS contato FROM agenda_evento A
                     INNER JOIN clientes C ON C.id = A.cliente
                     INNER JOIN franquias F ON F.id = A.unidade
-                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) = ?
+                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) = ? AND C.cod_empresa = 2
                     ORDER BY A.inicio ASC;";
             
             $resul = DB::select($SQL, [$horario_limite]);
