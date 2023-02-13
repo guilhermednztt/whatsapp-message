@@ -25,10 +25,10 @@ class Agenda extends Controller
             $hora_atual = explode(":", explode(" ", date("Y-m-d H:i:s"))[1])[0];
             $horario_limite = $hora_atual + $horas;
 
-            $SQL = "SELECT C.nome AS pessoa, C.celular, A.inicio, F.nome AS unidade, F.id FROM agenda_evento A
+            $SQL = "SELECT C.nome AS pessoa, C.celular, A.inicio, F.nome AS unidade, F.id, F.celular AS contato FROM agenda_evento A
                     INNER JOIN clientes C ON C.id = A.cliente
                     INNER JOIN franquias F ON F.id = A.unidade
-                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) BETWEEN HOUR(NOW()) AND ?
+                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) = ?
                     ORDER BY A.inicio ASC;";
             
             $resul = DB::select($SQL, [$horario_limite]);

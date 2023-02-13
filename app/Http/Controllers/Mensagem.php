@@ -31,6 +31,7 @@ class Mensagem
                 'detalhe' => 'A busca retornou nenhum dado'
             ), 417);
         }
+
         $disparos = $this->formatarMensagem($dados);
 
         $this->dispararMensagem($disparos);
@@ -57,13 +58,18 @@ class Mensagem
             $horario = explode(":", $horario[1]);
             $horario = $horario[0] . ":" . $horario[1];
 
-            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia horas para sua sessão acontecer <3.\n";
-            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética ( $unidade)* às $horario horas.\n\n";
+            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia hora(s) para sua sessão acontecer <3.\n\n";
+            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética ( $unidade)* às $horario horas.\n";
+            if($agendamento->contato != '' && !\is_null($agendamento->contato)){
+                $mensagem .= "O contato da clínica é: " . $agendamento->contato . ".\n\n";
+            } else {
+                $mensagem .= "\n";
+            }
             $mensagem .= "Temos 10 minutos de tolerância para te esperar, mas é bom já ir ficando de jeito!!\n\n";
             $mensagem .= "Ahh, não sei se já fez isso, mas... salva nosso número aí 😁. Obrigadaa!";
 
             array_push($disparos, array(
-                "phone" => $contato,
+                "phone" => "12992147422", // $contato,
                 "message" => $mensagem
             ));
         }
@@ -77,29 +83,40 @@ class Mensagem
      */
     public function dispararMensagem($dados)
     {
-        foreach($dados as $mensagem){
-            // $curl = curl_init();
+        $contTesteDesenvolvimento = 0;
+        try{
+            foreach($dados as $mensagem){
+                $contTesteDesenvolvimento++;
+                $curl = curl_init();
 
-            // curl_setopt_array($curl, array(
-            // CURLOPT_URL => "https://api.plugzapi.com.br/instances/SUA_INSTANCIA/token/SEU_TOKEN/send-text",
-            // CURLOPT_RETURNTRANSFER => true,
-            // CURLOPT_ENCODING => "",
-            // CURLOPT_TIMEOUT => 30,
-            // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            // CURLOPT_CUSTOMREQUEST => "POST",
-            // CURLOPT_POSTFIELDS => json_encode($mensagem),
-            // CURLOPT_HTTPHEADER => array(
-            //     "content-type: application/json"
-            // ),
-            // ));
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.plugzapi.com.br/instances/3B8B65EC02C150785C14865DD3BAD004/token/7C7083ACC020FBC3773CCC34/send-text",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => json_encode($mensagem),
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/json"
+                ),
+                ));
 
-            // curl_exec($curl);
-            // curl_close($curl);
+                curl_exec($curl);
+                curl_close($curl);
 
-            // $response = curl_exec($curl);
-            // $err = curl_error($curl);
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
 
-            echo json_encode($mensagem);
+                echo json_encode($mensagem) . "\n\n";
+
+                if($contTesteDesenvolvimento == 10) {
+                    break;
+                }
+            }
+        }
+        catch(Exception $e) {
+            echo "Erro(#" . __FUNCTION__ . "): " . $e;
         }
     }
     

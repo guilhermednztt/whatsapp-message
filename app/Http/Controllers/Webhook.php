@@ -25,10 +25,10 @@ class webhook
         if($contato = $this->identificarMensagem($request->input("phone"))){
             $arrayDisparoResposta = $this->criarRespostaMensagem($contato);
         } else {
-            $arrayDisparoResposta = $this->criarRespostaMensagem([False, False, False, $request->input("phone")], False);
+            $arrayDisparoResposta = $this->criarRespostaMensagem(array(False, False, False, $request->input("phone")), False);
         }
 
-        $this->objMensagem->dispararMensagem($arrayDisparoResposta);
+        $this->objMensagem->dispararMensagem([$arrayDisparoResposta]);
     }
 
 
