@@ -29,7 +29,7 @@ class WebhookStatus
                 $status = "Conectado";
             }
 
-            $this->notificarEmail($status);
+            $this->notificarEmail($status, $request->input("time"));
 
         }
         catch(Exception $e) {
@@ -41,13 +41,13 @@ class WebhookStatus
     /**
      * Notificar por e-mail sobre status de conexao ou desconexao
      */
-    public function notificarEmail($status)
+    public function notificarEmail($status, $time)
     {
         try{
-            $hora = date('d/m/Y H:i:s');
+            $hora = date('d/m/Y H:i:s', strtotime("-3 hour", $time)); // subtrair 3 horas (para o hr de Brasilia)
 
             $listaEmails = [
-                'guilherme.inovacao@maistopestetica.com.br'
+                'guilherme.inovacao@maistopestetica.com.br', 'guilhermedonizettiads@gmail.com'
             ];
             
             

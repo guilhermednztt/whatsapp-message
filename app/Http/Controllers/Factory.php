@@ -15,7 +15,7 @@ class Factory
      */
     public function formatWhatsApp($dado)
     {
-        return preg_replace("/[^0-9]/", "", $dado);
+        return "55" . preg_replace("/[^0-9]/", "", $dado);
     }
 
     /**

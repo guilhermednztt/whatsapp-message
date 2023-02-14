@@ -58,8 +58,8 @@ class Mensagem
             $horario = explode(":", $horario[1]);
             $horario = $horario[0] . ":" . $horario[1];
 
-            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia hora(s) para sua sessão acontecer <3.\n\n";
-            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética ( $unidade)* às $horario horas.\n";
+            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia hora(s) para sua sessão acontecer.\n\n";
+            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética 💜 ( $unidade)* às $horario horas.\n";
             if($agendamento->contato != '' && !\is_null($agendamento->contato)){
                 $mensagem .= "O contato da clínica é: " . $agendamento->contato . ".\n\n";
             } else {
@@ -70,7 +70,19 @@ class Mensagem
 
             array_push($disparos, array(
                 "phone" => "12992147422", // $contato,
-                "message" => $mensagem
+                "message" => $mensagem,
+                "buttonList" => array(
+                    "buttons" => array(
+                        array(
+                            "id" => "1",
+                            "label" => $nome . "? Não conheço."
+                        ),
+                        array(
+                            "id" => "2",
+                            "label" => "😃 Okay, combinado!"
+                        )
+                    )
+                )
             ));
         }
 
@@ -108,7 +120,7 @@ class Mensagem
                 
                 echo json_encode($mensagem) . "\n\n";
                 
-                if($contTesteDesenvolvimento == 10) {
+                if($contTesteDesenvolvimento == 1) {
                     break;
                 }
                 

@@ -16,7 +16,7 @@
             </tr>
         </table>
 
-        <br><p>Para alterar, acesse o <a href=''>painel de conexão</a>.</p>
+        <br><p>Para alterar, acesse o <a href='https://app.plugzapi.com.br/'>painel de conexão</a>.</p>
 
 </body>
 
