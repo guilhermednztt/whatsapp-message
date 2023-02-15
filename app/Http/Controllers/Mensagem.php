@@ -47,17 +47,16 @@ class Mensagem
         $disparos = array();
 
         foreach($dados AS $agendamento){
-            $contato = $this->obj_Factory->formatWhatsApp($agendamento->celular);
 
+            //---  FORMATACOES
+            $contato = $this->obj_Factory->formatWhatsApp($agendamento->celular); // APENAS NUMEROS, COM 55 NA FRENTE
             $nome = explode(" ", $agendamento->pessoa)[0];
-            $nome_intuitivo = strtoupper($nome . substr($nome, -1) . substr($nome, -1));
+            $nome_intuitivo = strtoupper($nome . substr($nome, -1) . substr($nome, -1)); // NOME MAIUSCULO REPETINDO A ULTIMA LETRA 3 VEZES
+            $unidade = explode("- ", $agendamento->unidade)[1]; // NOME DA UNIDADE SEM O CODIGO E O NOME DO FRANQUEADO
+            $horario = date("H:i", strtotime($agendamento->inicio)); // APENAS HORA E MINUTO DO AGENDAMENTO
 
-            $unidade = explode("- ", $agendamento->unidade)[1];
-
-            $horario = explode(" ", $agendamento->inicio);
-            $horario = explode(":", $horario[1]);
-            $horario = $horario[0] . ":" . $horario[1];
-
+            //--- MENSAGEM
+            // CRIA O CONTEUDO DA NOTIFICACAO, SE A UNIDADE TIVER CELULAR VAI SER CONCATENADO.
             $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia hora(s) para sua sessão acontecer.\n\n";
             $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética 💜 ( $unidade)* às $horario horas.\n";
             if($agendamento->contato != '' && !\is_null($agendamento->contato)){
@@ -68,9 +67,10 @@ class Mensagem
             $mensagem .= "Temos 10 minutos de tolerância para te esperar, mas é bom já ir ficando de jeito!!\n\n";
             $mensagem .= "Ahh, não sei se já fez isso, mas... salva nosso número aí 😁. Obrigadaa!";
 
+            //--- ESTRUTURA DE DADOS DA NOTIFICACAO
             array_push($disparos, array(
-                "phone" => "12992147422", // $contato,
-                "message" => $mensagem,
+                "phone" => "12992147422", // $contato, PARA QUEM SERA ENVIADO
+                "message" => $mensagem, // O QUE SERA ENVIADO
                 "buttonList" => array(
                     "buttons" => array(
                         array(
