@@ -29,7 +29,7 @@ class Agenda extends Controller
                     INNER JOIN clientes C ON C.id = A.cliente
                     INNER JOIN franquias F ON F.id = A.unidade
                     INNER JOIN notificacao_unidades N ON N.id_unidade = F.id
-                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) = ? AND C.cod_empresa = 2
+                    WHERE A.`data` = DATE(NOW()) AND HOUR(A.inicio) = ? AND C.cod_empresa = 2 AND A.`status` IN ('Agendado', 'Confirmado')
                     AND F.flg_pendente_pagto = 'N' AND F.id NOT IN (1, 2) AND N.flg_whatsapp = 'S'
                     ORDER BY A.inicio ASC;";
             
