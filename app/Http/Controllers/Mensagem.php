@@ -45,6 +45,7 @@ class Mensagem
     public function formatarMensagem($dados, $antecendencia = 4)
     {
         $disparos = array();
+        $hora_atual = explode(":", explode(" ", date("Y-m-d H:i:s"))[1])[0];
 
         foreach($dados AS $agendamento){
 
@@ -57,7 +58,11 @@ class Mensagem
 
             //--- MENSAGEM
             // CRIA O CONTEUDO DA NOTIFICACAO, SE A UNIDADE TIVER CELULAR VAI SER CONCATENADO.
-            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 Faltam $antecendencia hora(s) para sua sessão acontecer.\n\n";
+            $mensagem = "Olá, *" . $nome_intuitivo . "*!! 🤩 ";
+            if($hora_atual == 6){
+                $mensagem .= "Faltam poucas horas para sua sessão acontecer.\n\n";
+            } else {
+                $mensagem .= "Faltam $antecendencia hora(s) para sua sessão acontecer.\n\n";
             $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética 💜 ( $unidade)* às $horario horas.\n";
             if($agendamento->contato != '' && !\is_null($agendamento->contato)){
                 $mensagem .= "O contato da clínica é: " . $agendamento->contato . ".\n\n";
