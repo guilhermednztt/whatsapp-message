@@ -25,7 +25,7 @@ class Agenda extends Controller
             $hora_atual = explode(":", explode(" ", date("Y-m-d H:i:s"))[1])[0];
             $horario_limite = $hora_atual + $horas;
 
-            $SQL = "SELECT C.nome AS pessoa, C.celular, A.inicio, F.nome AS unidade, F.id, F.celular AS contato, N.contato_atendimento AS contato
+            $SQL = "SELECT C.nome AS pessoa, C.celular, A.inicio, F.nome AS unidade, F.id, N.contato_atendimento AS contato
                     FROM agenda_evento A
                     INNER JOIN clientes C ON C.id = A.cliente
                     INNER JOIN franquias F ON F.id = A.unidade

@@ -69,7 +69,7 @@ class Mensagem
 
             //--- ESTRUTURA DE DADOS DA NOTIFICACAO
             array_push($disparos, array(
-                "phone" => "12992147422", // $contato, PARA QUEM SERA ENVIADO
+                "phone" => $contato, // PARA QUEM SERA ENVIADO
                 "message" => $mensagem, // O QUE SERA ENVIADO
                 "buttonList" => array(
                     "buttons" => array(
@@ -98,7 +98,6 @@ class Mensagem
         $contTesteDesenvolvimento = 0;
         try{
             foreach($dados as $mensagem){
-                $contTesteDesenvolvimento++;
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
@@ -119,10 +118,6 @@ class Mensagem
                 $err = curl_error($curl);
                 
                 echo json_encode($mensagem) . "\n\n";
-                
-                if($contTesteDesenvolvimento == 1) {
-                    break;
-                }
                 
                 curl_close($curl);
             }

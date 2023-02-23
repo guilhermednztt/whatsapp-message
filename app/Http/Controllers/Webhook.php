@@ -25,13 +25,8 @@ class webhook
      */
     public function mensagemRecebida(Request $request)
     {
-
-        if($request->input("phone") != "5512997929348" && $request->input("phone") != "5512992147422"){
-            die("É o Bruno");
-        }
-
         // IF PARA IGNORAR STICKERS E REACOES
-        if(!isset($request->sticker) && !isset($request->reaction)){
+        if(!isset($request->sticker) && !isset($request->reaction) && $request->isGroup == False){
 
                 // SE A MENSAGEM FOR UM DOS BOTOES DE OPCAO SELECIONADO
                 if(isset($request->buttonsResponseMessage)){
@@ -74,8 +69,10 @@ class webhook
         // BUSCAR NO BD OS CLIENTES COM NUMEROS COM FINAL IGUAL
         $rs = array();
         try {
-            $SQL = "SELECT C.celular, C.nome AS pessoa, F.nome AS unidade, F.celular AS contato
-                    FROM clientes C INNER JOIN franquias F ON F.id = C.unidade
+            $SQL = "SELECT C.celular, C.nome AS pessoa, F.nome AS unidade, N.contato_atendimento AS contato
+                    FROM clientes C
+                    INNER JOIN franquias F ON F.id = C.unidade
+                    INNER JOIN notificacao_unidades N ON N.id_unidade = C.unidade
                     WHERE C.celular LIKE '%$final_contato' AND F.flg_pendente_pagto = 'N'";
             
             $resul = DB::select($SQL);
