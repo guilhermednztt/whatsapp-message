@@ -63,14 +63,18 @@ class Mensagem
                 $mensagem .= "Faltam poucas horas para sua sessão acontecer.\n\n";
             } else {
                 $mensagem .= "Faltam $antecendencia hora(s) para sua sessão acontecer.\n\n";
-            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética 💜 ( $unidade)* às $horario horas.\n";
-            if($agendamento->contato != '' && !\is_null($agendamento->contato)){
-                $mensagem .= "O contato da clínica é: " . $agendamento->contato . ".\n\n";
-            } else {
-                $mensagem .= "\n";
             }
-            $mensagem .= "Temos 10 minutos de tolerância para te esperar, mas é bom já ir ficando de jeito!!\n\n";
-            $mensagem .= "Ahh, não sei se já fez isso, mas... salva nosso número aí 😁. Obrigadaa!";
+            $mensagem .= "Por gentileza, anote aí! Estamos te esperando na *Mais Top Estética 💜 ( $unidade)* às $horario horas.\n\n";
+            $mensagem .= "Temos 10 minutos de tolerância para te esperar, mas é bom já ir ficando de jeito!! 😉\n\n";
+            if($agendamento->contato != '' && !\is_null($agendamento->contato)){
+                $mensagem .= "*Esta mensagem é automática* e não necessita de resposta. Para qualquer caso, o contato da clínica é: " . $agendamento->contato . ".\n\n";
+            } else {
+                $mensagem .= "*Esta mensagem é automática* e não necessita de resposta.\n";
+            }
+            $mensagem .= "😁 Obrigadaa!";
+
+            $msg_clinica = "*Cliente:* " . $agendamento->pessoa . "\n*Data:* Hoje às " . $horario . "h\n\n";
+            $msg_clinica .= "NOTIFICADO";
 
             //--- ESTRUTURA DE DADOS DA NOTIFICACAO
             array_push($disparos, array(
@@ -88,6 +92,12 @@ class Mensagem
                         )
                     )
                 )
+            ));
+
+            //--- CRIAR NOTIFICACAO PARA CLINICA
+            array_push($disparos, array(
+                "phone" => $agendamento->contato, // contato da clinica
+                "message" => $msg_clinica
             ));
         }
 

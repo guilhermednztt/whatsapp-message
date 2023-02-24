@@ -24,7 +24,7 @@ class Agenda extends Controller
 
         try {
             // Ex.: Se a data é 2022-09-08 10:40:00, resultado sera 10
-            $hora_atual = explode(":", explode(" ", date("Y-m-d H:i:s"))[1])[0];
+            $hora_atual = (int)explode(":", explode(" ", date("Y-m-d H:i:s"))[1])[0];
 
             if(\in_array($hora_atual, $horario_min)){
                 die("Nao notificar cliente às ". $hora_atual . "h. Muito cedo!");
