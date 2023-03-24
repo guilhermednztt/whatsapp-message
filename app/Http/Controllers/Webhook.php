@@ -33,6 +33,12 @@ class webhook
                 // SE A MENSAGEM FOR UM DOS BOTOES DE OPCAO SELECIONADO
                 if(isset($request->buttonsResponseMessage)){
                     $idBotao = $request->input("buttonsResponseMessage");
+
+                    // NAO EXECUTAR NADA SE RESPONDER AO LEMBRETE
+                    if($idBotao["buttonId"] == 'LEMBRETE'){
+                        die();
+                    }
+
                     $arrayOperacao = $this->identificarOperacao($idBotao["buttonId"]);                    
                     $arrayDisparoResposta = $this->criarRespostaMensagemOpcoes($arrayOperacao, $request->input("phone"));
 

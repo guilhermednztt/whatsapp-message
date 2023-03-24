@@ -152,6 +152,14 @@ class Mensagem
                 array_push($disparos, array(
                     "phone" => $contato, // PARA QUEM SERA ENVIADO
                     "message" => $mensagem, // O QUE SERA ENVIADO
+                    "buttonList" => array(
+                        "buttons" => array(
+                            array(
+                                "id" => "LEMBRETE",
+                                "label" => "Okay 😄"
+                            )
+                        )
+                    )
                 ));
             }
 
