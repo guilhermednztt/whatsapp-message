@@ -27,8 +27,8 @@ class webhook
      */
     public function mensagemRecebida(Request $request)
     {
-        // IF PARA IGNORAR STICKERS E REACOES
-        if(!isset($request->sticker) && !isset($request->reaction) && $request->isGroup == False){
+        // IF PARA IGNORAR STICKERS E REACOES E LIGACOES
+        if(!isset($request->sticker) && !isset($request->reaction) && !isset($request->callId) && $request->isGroup == False){
 
                 // SE A MENSAGEM FOR UM DOS BOTOES DE OPCAO SELECIONADO
                 if(isset($request->buttonsResponseMessage)){

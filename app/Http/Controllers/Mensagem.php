@@ -119,13 +119,17 @@ class Mensagem
                 $mensagem .= "🤜🏽🤛🏻 Até logo!";
             }
 
-            $msg_clinica = "*Cliente:* " . $agendamento->pessoa . "\n*Data:* Hoje às " . $horario . "h\n\n";
+            if($antecendencia == 24){
+                $msg_clinica = "*Cliente:* " . $agendamento->pessoa . "\n*Data:* Amanhã às " . $horario . "h\n\n";
+            } else {
+                $msg_clinica = "*Cliente:* " . $agendamento->pessoa . "\n*Data:* Hoje às " . $horario . "h\n\n";
+            }
             $msg_clinica .= "NOTIFICADO";
 
             //--- OPCOES
             $modelo = $antecendencia == 24 ? "C" : "L";
             $arrayOptions = $this->obj_Factory->formatCriarOpcoes(
-                $agendamento->id_cliente, $agendamento->id_sessao, $modelo, $nome, "12974043392", $agendamento->pessoa
+                $agendamento->id_cliente, $agendamento->id_sessao, $modelo, $nome, $agendamento->numero_contato, $agendamento->pessoa
             );
 
             //--- ESTRUTURA DE DADOS DA NOTIFICACAO OU LEMBRETE
@@ -137,6 +141,12 @@ class Mensagem
                         "buttons" => $arrayOptions
                     )
                 ));
+                
+                //--- CRIAR NOTIFICACAO PARA CLINICA
+                array_push($disparos, array(
+                    "phone" => $agendamento->numero_contato, // contato da clinica
+                    "message" => $msg_clinica
+                ));
 
             } else {
                 array_push($disparos, array(
@@ -145,11 +155,6 @@ class Mensagem
                 ));
             }
 
-            //--- CRIAR NOTIFICACAO PARA CLINICA
-            array_push($disparos, array(
-                "phone" => "12974043392", // $agendamento->numero_contato, // contato da clinica
-                "message" => $msg_clinica
-            ));
         }
 
         return $disparos;
