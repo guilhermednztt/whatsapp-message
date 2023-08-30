@@ -8,7 +8,8 @@
 <b><h3>II. Fluxo de Dados</h3></b>
 Abaixo consta a imagem com o fluxo de dados do projeto:
     
-![image](https://github.com/guilhermednztt/whatsapp-message/assets/121525620/969a4925-6f68-4862-93ee-f099879e70aa)
+![image](https://github.com/guilhermednztt/whatsapp-message/assets/121525620/6bc71cec-4122-445d-9eb3-fcc651143d1e)
+
 
 <br>
 <b><h3>III. Validação</h3></b>
