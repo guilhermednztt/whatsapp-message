@@ -111,17 +111,17 @@ class webhook
 
         // VARIACAO DE MENSAGEM PARA RESPONDER QUEM EH CLIENTE
         $padroes_para_clientes = array(
-            "Entendi!\n\nUma unidade que pode te ajudar é a Mais Top Estética - *$dados[0]*. Por gentileza, manda mensagem pra unidade 😉\n\nNesse contato:\n$dados[1].",
-            "Você já é cliente na Mais Top Estética - *$dados[0]*.\n\nPoderia enviar mensagem para essa unidade, por favor❓\nO WhatsApp da clínica é:\n$dados[1].",
-            "$dados[2], por gentileza, envia mensagem para a Mais Top Estética - *$dados[0]*.\nO WhatsApp da clínica é:\n$dados[1].\n\nEu tenho certeza que essa clínica vai poder te atender e ajudar! 💜",
-            "Eii, o WhatsApp da Mais Top Estética - *$dados[0]* é:\n$dados[1].\n\nEnvia suas mensagens nesse contato ☝🏼 por gentileza?! <3"
+            "Entendi!\n\nUma unidade que pode te ajudar é a [NOME_EMPRESA] - *$dados[0]*. Por gentileza, manda mensagem pra unidade 😉\n\nNesse contato:\n$dados[1].",
+            "Você já é cliente na [NOME_EMPRESA] - *$dados[0]*.\n\nPoderia enviar mensagem para essa unidade, por favor❓\nO WhatsApp da clínica é:\n$dados[1].",
+            "$dados[2], por gentileza, envia mensagem para a [NOME_EMPRESA] - *$dados[0]*.\nO WhatsApp da clínica é:\n$dados[1].\n\nEu tenho certeza que essa clínica vai poder te atender e ajudar! 💙",
+            "Eii, o WhatsApp da [NOME_EMPRESA] - *$dados[0]* é:\n$dados[1].\n\nEnvia suas mensagens nesse contato ☝🏼 por gentileza?! <3"
         );
 
         // VARIACAO DE MENSAGEM PARA RESPONDER QUEM NAO EH CLIENTE
         $padroes_sem_ser_cliente = array(
-            "Hmmm! Não posso responder você :-(\n\nMas tenho certeza que alguma das clínicas *Mais Top Estética* pode 😃💜! Encontre a unidades *mais próxima de você*:\nhttps://maistopestetica.com.br/agendamento\n\nObrigada por seu contato 😘",
-            "Antes de dar continuidade... Eu não posso responder você :-(\n\nSó que a *Mais Top Estética* tem uma lista ENORME de unidades 🤩, e com certeza uma delas está perto de você e pode te ajudar.\n\nEncontre alguma 👇🏻:\nhttps://maistopestetica.com.br/agendamento\n\nEspero ter ajudado 💜",
-            "Muitoo obrigada pelo seu contato 💜. É otimo ter você aqui!!\nPeço desculpas por não poder te ajudar muito, eu estou me desenvolvendo ainda como atendente :(\n\n*Mas uma das clínicas COM CERTEZA poderão te audar.*\nEncontre a que está mais pertinho de você:\nhttps://maistopestetica.com.br/agendamento\n\nA unidade que você selecionar é que vai entrar em contato com você. 😉\nNovamente obrigada!!",
+            "Hmmm! Não posso responder você :-(\n\nMas tenho certeza que alguma das clínicas *[NOME_EMPRESA]* pode 😃💙! Encontre a unidades *mais próxima de você*:\nhttps://maistopestetica.com.br/agendamento\n\nObrigada por seu contato 😘",
+            "Antes de dar continuidade... Eu não posso responder você :-(\n\nSó que a *[NOME_EMPRESA]* tem uma lista ENORME de unidades 🤩, e com certeza uma delas está perto de você e pode te ajudar.\n\nEncontre alguma 👇🏻:\nhttps://maistopestetica.com.br/agendamento\n\nEspero ter ajudado 💙",
+            "Muitoo obrigada pelo seu contato 💙. É otimo ter você aqui!!\nPeço desculpas por não poder te ajudar muito, eu estou me desenvolvendo ainda como atendente :(\n\n*Mas uma das clínicas COM CERTEZA poderão te audar.*\nEncontre a que está mais pertinho de você:\nhttps://maistopestetica.com.br/agendamento\n\nA unidade que você selecionar é que vai entrar em contato com você. 😉\nNovamente obrigada!!",
             "Eii, infelizmente não consigo dar continuidade em nossa conversa :(\n\nPor gentileza, encontre uma clínica perto de você e ela vai entrar em contato 👇🏻:\nhttps://maistopestetica.com.br/agendamento\n\nObrigada! 😁"
         );
 
@@ -211,8 +211,8 @@ class webhook
 
         // VARIACAO DE MENSAGEM SE A OPCAO SELECIONADA FOR A QUE CONFIRMA
         $lista_confirmado = [
-            "💜 Mais Top agradece!!\nEncerrado.",
-            "😃💜 Gratidão!\n\nEncerrado.",
+            "💙 [NOME_EMPRESA] agradece!!\nEncerrado.",
+            "😃💙 Gratidão!\n\nEncerrado.",
             "Até mais! 😃\nEncerrado"
         ];
 

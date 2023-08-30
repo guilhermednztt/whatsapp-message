@@ -87,7 +87,7 @@ class Mensagem
             if($antecendencia == 24) {
                 $mensagem .= "Olá, *" . $nome_intuitivo . "*!! 🤩 ";
                 $mensagem .= "\n\n*Posso confirmar sua presença AMANHÃ (". $dia ."), às $horario h❓*\n\n";
-                $mensagem .= "Te espero na *Mais Top Estética 💜 ( $unidade)*, com 10 minutos de tolerância 😉\n\n";
+                $mensagem .= "Te espero na *[NOME_EMPRESA] 💙 ( $unidade)*, com 10 minutos de tolerância 😉\n\n";
                 $mensagem .= "Lembre-se ⚠️\nApós confirmar sua sessão, o não comparecimento implicará como sessão dada.\n\n";
                 $mensagem .= "👉🏼 Para *Confirmar* ou *Cancelar*, use as opções abaixo!\n\n";
             }
@@ -181,7 +181,7 @@ class Mensagem
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.plugzapi.com.br/instances/3B8B65EC02C150785C14865DD3BAD004/token/7C7083ACC020FBC3773CCC34/send-text",
+                CURLOPT_URL => "https://api.plugzapi.com.br/instances/[INSTANCIA]/token/[TOKEN]/send-text",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_TIMEOUT => 30,
